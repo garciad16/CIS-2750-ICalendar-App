@@ -5,7 +5,7 @@ Implementation of the program:
 
     -> ICalendar files extracted into databases and webpages
      -> Able to create own ICalendar files via user interface and check its validity
-     -> Error handling included (Ex. Invalid Event, Alarm...)   
+     -> Error handling included (Ex. Invalid Event, Alarm, etc...)   
     -> Using C, HTML, CSS, JavaScript and MySQL
      -> FrontEnd and BackEnd development
       -> Use of JSON and node.js to communicate between C and JavaScript
