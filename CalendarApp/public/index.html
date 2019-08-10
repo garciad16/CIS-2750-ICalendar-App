@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<head>
+    <title>Calendar Viewer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CHANGE ME">
+    <meta name="keywords" content="CHANGE ME">
+    <meta name="author" content="CHANGE ME">
+    <!-- Load jquery, bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <!-- Custom CSS End -->
+
+</head>
+<body>
+	
+	<h1>CIS 2750: Assignment 3</h1>
+		
+	<h3> Status Panel: Error Status </h3>
+	<div class="statusPanel">
+	</div>
+	<button onclick="clearPanel();">Clear</button>
+	<h3> File Log Panel </h3>
+	<div class = "fileLogPanel">	
+		<table class = "table table-striped table-bordered table-sm">
+		<thead>
+			<tr>
+				<th>File name (click to download)</th>
+				<th>Version</th>
+				<th>Product ID</th>
+				<th>Number of Events</th>
+				<th>Number of Properties</th>
+			</tr>
+		</thead>
+		<tbody id="tableBody1">		
+		</tbody>
+			<form id        =  "uploadForm"
+			enctype   =  "multipart/form-data"
+			action    =  "/upload"
+			method    =  "post">
+				<input type="file" name="uploadFile" class = "uploadFile"/>
+				<input type="submit" value="Upload File" name="submit">
+			</form>
+			<button onclick="addRow1();">Add File to List</button>
+		</table>
+		</div>
+	
+	<h3>Calendar View Panel</h3>
+		<div class = "CalendarPanel" >
+			<div class="dropdown">
+				<select id = "myDropdown">
+				<option value="selectfile">--Select File--</option>
+				</select>
+		</div>
+		<table class = "table table-striped table-bordered table-sm">
+		<thead>
+			<tr>
+				<th>Event Number</th>
+				<th>Start Date</th>
+				<th>Start Time</th>
+				<th>Summary</th>
+				<th>Number of Properties</th>
+				<th>Number of Alarms</th>
+				<th>Show Alarms</th>
+				<th>Extract Optional Properties</th>
+			</tr>
+		</thead>
+		<tbody id="tableBody2">
+		</tbody>
+		</table>
+		</div>
+		
+		<h3>Create your own Calendar!</h3>
+		<form id="form1" action="" method="post">
+			<div class="form-field">
+				<label for="newFileName">File Name:</label>
+					<input name="newFileName" id="newFileName" type="text" value="" size="40" aria-required="true">
+			</div>
+			<h5>Create Calendar Properties:</h5>
+			<div class="form-field">
+				<label for="version">Version:</label>
+					<input name="version" id="version" type="text" value="" size="40" aria-required="true">
+			</div>
+			<div class="form-field">
+				<label for="prodID">Product ID:</label>
+					<input name="prodID" id="prodID" type="text" value="" size="40" aria-required="true">
+			</div>
+				
+			<h5>Create Event Properties:</h5>
+			<div class="form-field">
+				<label for="UID">UID:</label>
+					<input name="UID" id="UID" type="text" value="" size="40" aria-required="true">
+				</div>	
+			<div class="form-field">
+					<label for="startDT_date">start Date:</label>
+						<input name="startDT_date" id="startDT_date" type="text" value="" size="40" aria-required="true">
+				</div>
+				<div class="form-field">
+					<label for="startDT_time">start Time:</label>
+						<input name="startDT_time" id="startDT_time" type="text" value="" size="40" aria-required="true">
+				</div>
+				<div class="form-field">
+					<label for="creationDT_date">creation Date:</label>
+						<input name="creationDT_date" id="creationDT_date" type="text" value="" size="40" aria-required="true">
+				</div>
+				<div class="form-field">
+					<label for="creationDT_time">creation Time:</label>
+						<input name="creationDT_time" id="creationDT_time" type="text" value="" size="40" aria-required="true">
+				</div>
+				
+					<p><input type="submit" /></p>
+					
+		</form>
+		
+		<h3>Add Event to existing file</h3>
+		<form id="form2" action="" method="post">
+		<div class = "newEventPanel" >
+			<div class="dropdownEvent">
+				<select id = "eventDropdown">
+					
+				</select>
+				<div class="form-field">
+				<label for="newUID">UID:</label>
+					<input name="newUID" id="newUID" type="text" value="" size="40" aria-required="true">
+				</div>		
+			<div class="form-field">
+					<label for="startEVT_date">start Date:</label>
+						<input name="startEVT_date" id="startEVT_date" type="text" value="" size="40" aria-required="true">
+				</div>
+				<div class="form-field">
+					<label for="startEVT_time">start Time:</label>
+						<input name="startEVT_time" id="startEVT_time" type="text" value="" size="40" aria-required="true">
+				</div>
+				<div class="form-field">
+					<label for="creationEVT_date">creation Date:</label>
+						<input name="creationEVT_date" id="creationEVT_date" type="text" value="" size="40" aria-required="true">
+				</div>
+				<div class="form-field">
+					<label for="creationEVT_time">creation Time:</label>
+						<input name="creationEVT_time" id="creationEVT_time" type="text" value="" size="40" aria-required="true">
+				</div>
+				
+					<p><input type="submit" /></p>
+			
+			</div>	
+		</form>
+		</div>
+		<br>
+		<br>
+		<h1>CIS 2750: Assignment 4</h1>
+		<h3>Login to Database</h3>
+		<!-- Button to open the modal login form -->
+		<button onclick="document.getElementById('id01').style.display='block'">Login</button>
+
+		<!-- The Modal -->
+		<div id="id01" class="modal">
+			<span onclick="document.getElementById('id01').style.display='none'" 
+				class="close" title="Close Modal">&times;</span>
+		
+		<!-- Modal Content -->
+		<form id="dblogin" class="modal-content animate" >
+			
+			<div class="container">
+				<label for="uname"><b>Username</b></label>
+				<input id = "username" type="text" placeholder="Enter Username" name="uname" required>
+
+				<label for="psw"><b>Password</b></label>
+					<input id = "password" type="password" placeholder="Enter Password" name="psw" required>
+					
+				<label for="dBase"><b>Data Base</b></label>
+					<input id = "database" type="text" placeholder="Enter DataBase" name="dBase" required>
+
+			<button type="submit">Login</button>
+			<label>
+				<input type="checkbox" checked="checked" name="remember"> Remember me
+			</label>
+		</div>
+
+		<div class="container" style="background-color:#f1f1f1">
+		  <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+	 
+		</div>
+	  </form>
+	</div>
+	<button onclick="storeFiles();">Store All Files to DB</button>
+	<button onclick="clearDB();">Clear File Database</button>
+	<button onclick="endConnect();">Logout of Database</button>
+	<br>
+	<br>
+	<!--Query Tables-->
+	<h2>Query Tables</h2>
+		<div class = "QueryOne" >
+			<h4>Query One: Display all events sorted by Start Date</h4>
+			<button onclick="QueryOneBtn();">Run Query One</button>
+		<table class = "table table-striped table-bordered table-sm">
+		<thead>
+			<tr>
+				<th>Summary</th>
+				<th>Start Time</th>
+				<th>Location</th>
+				<th>Organizer</th>
+				<th>CAL ID</th>
+			</tr>
+		</thead>
+		<tbody id="QueryTable1">
+		</tbody>
+		</table>
+		</div>
+	
+		<div class = "QueryTwo" >
+			<h4>Query Two: Display events from a Specific File</h4>
+			<!--<form id="formQuery2" action="" method="post">-->
+			<div class="form-field">
+				<label for="fileBox">File Name:</label>
+					<input name="fileBox" id="fileBox" type="text" value=""  aria-required="true">
+				</div>
+				<!--<p><input type="submit" /></p>-->
+				<button onclick="QueryTwoBtn();">Submit Query Two</button>
+			<!--</form>-->
+		<table class = "table table-striped table-bordered table-sm">
+		<thead>
+			<tr>
+				<th>File Name</th>
+				<th>Summary</th>
+				<th>Start Time</th>
+				<th>Cal ID</th>
+			</tr>
+		</thead>
+		<tbody id="QueryTable2">
+		</tbody>
+		</table>
+		</div>
+		
+		<div class = "QueryThree" >
+			<h4>Query Three: Display all events that conflict each other with time</h4>
+			<button onclick="QueryThreeBtn();">Run Query Three</button>
+		<table class = "table table-striped table-bordered table-sm">
+		<thead>
+			<tr>
+				<th>Summary</th>
+				<th>Start Time</th>
+				<th>Organizer</th>
+				<th>Event ID</th>
+			</tr>
+		</thead>
+		<tbody id="QueryTable3">
+		</tbody>
+		</table>
+		</div>
+		
+		<div class = "QueryFour" >
+			<h4>Query Four: Display all filenames, version and their event summaries</h4>
+			<button onclick="QueryFourBtn();">Run Query Four</button>
+		<table class = "table table-striped table-bordered table-sm">
+		<thead>
+			<tr>
+				<th>File Name</th>
+				<th>Version</th>
+				<th>Summary</th>
+				<th>CAL ID</th>
+			</tr>
+		</thead>
+		<tbody id="QueryTable4">
+		</tbody>
+		</table>
+		</div>
+		
+		<div class = "QueryFive" >
+			<h4>Query Five: Display the files with version of 3.0 and their event organizer</h4>
+			<button onclick="QueryFiveBtn();">Run Query Five</button>
+		<table class = "table table-striped table-bordered table-sm">
+		<thead>
+			<tr>
+				<th>File Name</th>
+				<th>Version</th>
+				<th>Organizer</th>
+			</tr>
+		</thead>
+		<tbody id="QueryTable5">
+		</tbody>
+		</table>
+		</div>
+		
+	
+    <!-- Leave me at the bottom of body -->
+    <script src="/index.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
