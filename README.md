@@ -2,9 +2,11 @@
 Software Systems Development and Integration. Methods for organizing and constructing modular systems, manipulating files, an introduction to interface design, and use of databases
 
 Implementation of the program:
+
   -> ICalendar files extracted into databases and webpages
      -> Able to create own ICalendar files via user interface and check its validity
      -> Error handling included (Ex. Invalid Event, Alarm...)
+     
   -> Using C, HTML, CSS, JavaScript and MySQL
      -> FrontEnd and BackEnd development
       -> Use of JSON and node.js to communicate between C and JavaScript
@@ -17,6 +19,7 @@ Implementation of the program:
      
      
 Issues with the program:
+
   -> Unable to extract the Alarm Table into the webpage
   
  
